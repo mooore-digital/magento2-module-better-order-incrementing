@@ -1,5 +1,5 @@
 {
-  "name": "marissen/magento2-better-order-incrementing",
+  "name": "marissen/magento2-module-better-order-incrementing",
   "description": "Increment order ids manually, instead of relying on auto increment.",
   "require": {
     "magento/framework": "101.*|102.*",

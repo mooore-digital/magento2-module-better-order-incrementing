@@ -6,7 +6,7 @@ When MySQL rollbacks happen, auto increment IDs do not rollback to their previou
 
 ## Installation
 ``` bash
-composer require marissen/magento2-better-order-incrementing
+composer require marissen/magento2-module-better-order-incrementing
 bin/magento setup:upgrade
 ```
 
