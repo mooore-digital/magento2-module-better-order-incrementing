@@ -1,6 +1,7 @@
 {
   "name": "marissen/magento2-module-better-order-incrementing",
   "description": "Increment order ids manually, instead of relying on auto increment.",
+  "license": "MIT",
   "require": {
     "magento/framework": "101.*|102.*",
     "magento/module-sales-sequence": "100.*"
