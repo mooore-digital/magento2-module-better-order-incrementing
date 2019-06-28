@@ -1,0 +1,17 @@
+{
+  "name": "marissen/magento2-better-order-incrementing",
+  "description": "Increment order ids manually, instead of relying on auto increment.",
+  "require": {
+    "magento/framework": "101.*|102.*",
+    "magento/module-sales-sequence": "100.*"
+  },
+  "type": "magento2-module",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Marissen\\BetterOrderIncrementing\\": ""
+    }
+  }
+}
