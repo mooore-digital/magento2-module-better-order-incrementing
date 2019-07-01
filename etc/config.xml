@@ -1,0 +1,10 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sales>
+            <id_incrementer>
+                <enable_debug>0</enable_debug>
+            </id_incrementer>
+        </sales>
+    </default>
+</config>

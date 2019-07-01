@@ -4,17 +4,22 @@ declare(strict_types=1);
 
 namespace Marissen\BetterOrderIncrementing\Model;
 
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\ResourceConnection as AppResource;
 use Magento\Framework\DB\Sequence\SequenceInterface;
 use Magento\SalesSequence\Model\Meta;
 use Magento\SalesSequence\Model\Profile;
+use Psr\Log\LoggerInterface;
 
 class Sequence implements SequenceInterface
 {
     /**
      * Default pattern for Sequence
      */
-    const DEFAULT_PATTERN  = "%s%'.09d%s";
+    const DEFAULT_PATTERN = "%s%'.09d%s";
+
+    const CONFIG_PATH_ENABLE_DEBUG = 'sales/id_incrementer/enable_debug';
+
     /**
      * @var string
      */
@@ -28,6 +33,14 @@ class Sequence implements SequenceInterface
      */
     private $connection;
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+    /**
+     * @var ScopeConfigInterface
+     */
+    private $scopeConfig;
+    /**
      * @var string
      */
     private $pattern;
@@ -40,10 +53,14 @@ class Sequence implements SequenceInterface
     public function __construct(
         Meta $meta,
         AppResource $resource,
+        LoggerInterface $logger,
+        ScopeConfigInterface $scopeConfig,
         $pattern = self::DEFAULT_PATTERN
     ) {
         $this->meta = $meta;
         $this->connection = $resource->getConnection('sales');
+        $this->logger = $logger;
+        $this->scopeConfig = $scopeConfig;
         $this->pattern = $pattern;
     }
 
@@ -74,10 +91,27 @@ class Sequence implements SequenceInterface
      */
     public function getNextValue()
     {
+        $current = $this->getLatestId();
+        $next = $current + 1;
+
+        if ((bool) $this->scopeConfig->getValue(self::CONFIG_PATH_ENABLE_DEBUG)) {
+            $this->logger->info(
+                sprintf(
+                    'Increment table %s (%d => %d)',
+                    $this->getMetaSequenceTable(),
+                    $current,
+                    $next
+                ),
+                [
+                    'module' => 'Marissen_BetterOrderIncrementing'
+                ]
+            );
+        }
+
         $this->connection->insert(
             $this->getMetaSequenceTable(),
             [
-                'sequence_value' => $this->getLatestId() + 1
+                'sequence_value' => $next
             ]
         );
 
