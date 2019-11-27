@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Marissen\BetterOrderIncrementing\Model;
+namespace Mooore\BetterOrderIncrementing\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\ResourceConnection as AppResource;
@@ -103,7 +103,7 @@ class Sequence implements SequenceInterface
                     $next
                 ),
                 [
-                    'module' => 'Marissen_BetterOrderIncrementing'
+                    'module' => 'Mooore_BetterOrderIncrementing'
                 ]
             );
         }
